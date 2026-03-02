@@ -1,0 +1,161 @@
+  <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes slide-in-left {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slide-in-right {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(59, 130, 246, 0.8);
+            }
+        }
+
+        @keyframes spin-slow {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .gradient-bg {
+            background: linear-gradient(-45deg, #ff006e, #ff1493, #ff006e, #ff0099);
+            background-size: 400% 400%;
+            animation: gradient-shift 15s ease infinite;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #3b82f6 0%, #ff006e 100%);
+        }
+
+        .dark .hero-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #4a0033 100%);
+        }
+
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .dark .glassmorphism {
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            box-shadow: 0 8px 32px rgba(59, 130, 246, 0.1);
+        }
+
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .slide-left {
+            animation: slide-in-left 0.8s ease-out;
+        }
+
+        .slide-right {
+            animation: slide-in-right 0.8s ease-out;
+        }
+
+        .glow-pulse {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        .spinner {
+            animation: spin-slow 1.5s linear infinite;
+        }
+
+        .feature-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(59, 130, 246, 0.3);
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+
+        .dark .feature-card:hover {
+            box-shadow: 0 20px 50px rgba(59, 130, 246, 0.4);
+        }
+
+        .upload-zone {
+            transition: all 0.3s ease;
+        }
+
+        .upload-zone.dragover {
+            background: linear-gradient(135deg, #dbeafe 0%, #f5d4ff 100%);
+            border-color: #3b82f6;
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .dark .upload-zone.dragover {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
+            border-color: #60a5fa;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        }
+
+        .progress-fill {
+            transition: width 0.5s ease;
+            background: linear-gradient(90deg, #10b981, #06b6d4, #3b82f6);
+        }
+
+        .aqi-badge {
+            animation: pulse-glow 2s ease-in-out infinite;
+            box-shadow: 0 0 30px rgba(255, 0, 110, 0.8);
+        }
+
+        @media (max-width: 640px) {
+            .text-6xl {
+                font-size: 2.25rem;
+            }
+        }
+        
+    </style>

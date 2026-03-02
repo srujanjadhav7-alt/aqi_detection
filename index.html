@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AQI Detection System - ML-Powered Air Quality Analysis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel = "stylesheet" href="style.css">
+  
+</head>
+<body class="bg-white dark:bg-gray-900 transition-colors duration-300">
+    <!-- Navigation -->
+    <nav class="fixed w-full top-0 z-50 glassmorphism border-b-2 border-blue-400/20 dark:border-blue-500/30 bg-white/80 dark:bg-slate-950/90">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-2">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-600 via-pink-600 to-red-600 rounded-lg flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-pink-500/60">
+                        AQ
+                    </div>
+                    <span class="font-bold text-xl bg-gradient-to-r from-pink-600 to-pink-500 bg-clip-text text-transparent">AQI Detection</span>
+                </div>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#hero" class="text-gray-700 dark:text-pink-300 hover:text-pink-600 dark:hover:text-pink-400 transition font-medium">Home</a>
+                    <a href="#features" class="text-gray-700 dark:text-pink-300 hover:text-pink-600 dark:hover:text-pink-400 transition font-medium">Features</a>
+                    <a href="#upload" class="text-gray-700 dark:text-pink-300 hover:text-pink-600 dark:hover:text-pink-400 transition font-medium">Demo</a>
+                    <a href="#about" class="text-gray-700 dark:text-pink-300 hover:text-pink-600 dark:hover:text-pink-400 transition font-medium">About</a>
+                    <a href="#contact" class="text-gray-700 dark:text-pink-300 hover:text-pink-600 dark:hover:text-pink-400 transition font-medium">Contact</a>
+                </div>
+                <button id="theme-toggle" class="p-2 rounded-lg bg-pink-100 dark:bg-pink-900 hover:bg-pink-200 dark:hover:bg-pink-800 transition shadow-lg shadow-pink-400/50 dark:shadow-pink-600/60">
+                    <i class="fas fa-sun text-yellow-600 text-lg dark:hidden"></i>
+                    <i class="fas fa-moon text-yellow-300 hidden text-lg dark:block"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 bg-gradient-to-b from-white to-blue-50 dark:from-slate-950 dark:to-slate-900">
+        <div class="gradient-bg absolute inset-0 opacity-40 dark:opacity-20"></div>
+        <div class="hero-gradient absolute inset-0 opacity-40 dark:opacity-50"></div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="slide-left">
+                <h1 class="text-6xl md:text-7xl font-bold text-white mb-6 leading-tight">
+                    Air Quality Intelligence
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-100 mb-8 max-w-3xl mx-auto">
+                    Advanced ML-powered image analysis for real-time air quality index detection
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button onclick="document.getElementById('upload').scrollIntoView({ behavior: 'smooth' })" class="px-8 py-4 bg-white text-pink-600 font-bold rounded-lg hover:bg-gray-100 transition transform hover:scale-105 shadow-lg shadow-pink-400/50">
+                        Try Demo
+                    </button>
+                    <button onclick="document.getElementById('features').scrollIntoView({ behavior: 'smooth' })" class="px-8 py-4 bg-gradient-to-r from-pink-600 to-pink-500 text-white font-bold rounded-lg hover:from-pink-700 hover:to-pink-600 transition transform hover:scale-105 shadow-lg shadow-pink-500/60">
+                        Learn More
+                    </button>
+                </div>
+            </div>
+
+            <div class="relative w-64 h-64 mx-auto">
+                    <div class="absolute inset-0 bg-gradient-to-br from-cyan-400 to-purple-600 rounded-full blur-3xl opacity-70"></div>
+                    <div class="relative bg-gradient-to-br from-white to-blue-50 dark:from-slate-800 dark:to-slate-900 rounded-full w-64 h-64 flex items-center justify-center glassmorphism float-animation shadow-2xl shadow-blue-400/30">
+                        <div class="text-center">
+                            <i class="fas fa-wind text-6xl bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent mb-4 block"></i>
+                            <p class="text-gray-700 dark:text-blue-300 font-bold text-lg">Real-time Analysis</p>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i class="fas fa-chevron-down text-white text-2xl"></i>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-gradient-to-b from-blue-50 to-white dark:from-slate-900 dark:to-slate-950 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-pink-600 to-pink-500 bg-clip-text text-transparent dark:from-pink-400 dark:to-pink-300 mb-4">Powerful Features</h2>
+                <p class="text-lg text-gray-600 dark:text-pink-300 font-medium">Everything you need for accurate AQI detection</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="feature-card bg-white dark:bg-gradient-to-br dark:from-slate-800 dark:to-slate-900 rounded-xl p-8 shadow-lg dark:shadow-2xl dark:shadow-blue-900/30">
+                    <div class="w-14 h-14 bg-gradient-to-br from-blue-100 to-blue-50 dark:from-blue-900/50 dark:to-blue-800/30 rounded-lg flex items-center justify-center mb-6 shadow-lg shadow-blue-400/30">
+                        <i class="fas fa-brain text-2xl text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-blue-200 mb-3">ML-Powered</h3>
+                    <p class="text-gray-600 dark:text-blue-300">Advanced machine learning algorithms trained on thousands of air quality images</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="feature-card bg-white dark:bg-gradient-to-br dark:from-slate-800 dark:to-slate-900 rounded-xl p-8 shadow-lg dark:shadow-2xl dark:shadow-pink-900/40">
+                    <div class="w-14 h-14 bg-gradient-to-br from-pink-100 to-pink-50 dark:from-pink-900/50 dark:to-pink-800/30 rounded-lg flex items-center justify-center mb-6 shadow-lg shadow-pink-400/40">
+                        <i class="fas fa-bolt text-2xl text-pink-600 dark:text-pink-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-pink-200 mb-3">Lightning Fast</h3>
+                    <p class="text-gray-600 dark:text-pink-300">Get results in seconds with optimized neural networks</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="feature-card bg-white dark:bg-gradient-to-br dark:from-slate-800 dark:to-slate-900 rounded-xl p-8 shadow-lg dark:shadow-2xl dark:shadow-pink-900/40">
+                    <div class="w-14 h-14 bg-gradient-to-br from-pink-100 to-pink-50 dark:from-pink-900/50 dark:to-pink-800/30 rounded-lg flex items-center justify-center mb-6 shadow-lg shadow-pink-400/40">
+                        <i class="fas fa-chart-line text-2xl text-pink-600 dark:text-pink-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-pink-200 mb-3">Accurate Results</h3>
+                    <p class="text-gray-600 dark:text-pink-300">95%+ accuracy rate in AQI category classification</p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="feature-card bg-white dark:bg-gradient-to-br dark:from-slate-800 dark:to-slate-900 rounded-xl p-8 shadow-lg dark:shadow-2xl dark:shadow-pink-900/40">
+                    <div class="w-14 h-14 bg-gradient-to-br from-pink-100 to-pink-50 dark:from-pink-900/50 dark:to-pink-800/30 rounded-lg flex items-center justify-center mb-6 shadow-lg shadow-pink-400/40">
+                        <i class="fas fa-mobile-alt text-2xl text-pink-600 dark:text-pink-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-pink-200 mb-3">Mobile Ready</h3>
+                    <p class="text-gray-600 dark:text-pink-300">Upload images from any device, anywhere</p>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="feature-card bg-white dark:bg-gradient-to-br dark:from-slate-800 dark:to-slate-900 rounded-xl p-8 shadow-lg dark:shadow-2xl dark:shadow-yellow-900/30">
+                    <div class="w-14 h-14 bg-gradient-to-br from-lime-100 to-lime-50 dark:from-lime-900/50 dark:to-lime-800/30 rounded-lg flex items-center justify-center mb-6 shadow-lg shadow-lime-400/30">
+                        <i class="fas fa-shield-alt text-2xl text-lime-600 dark:text-lime-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-lime-200 mb-3">Secure & Private</h3>
+                    <p class="text-gray-600 dark:text-lime-300">Your data is processed locally and never stored</p>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="feature-card bg-white dark:bg-gradient-to-br dark:from-slate-800 dark:to-slate-900 rounded-xl p-8 shadow-lg dark:shadow-2xl dark:shadow-indigo-900/30">
+                    <div class="w-14 h-14 bg-gradient-to-br from-indigo-100 to-indigo-50 dark:from-indigo-900/50 dark:to-indigo-800/30 rounded-lg flex items-center justify-center mb-6 shadow-lg shadow-indigo-400/30">
+                        <i class="fas fa-info-circle text-2xl text-indigo-600 dark:text-indigo-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-indigo-200 mb-3">Health Insights</h3>
+                    <p class="text-gray-600 dark:text-indigo-300">Detailed health recommendations based on AQI levels</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upload Section -->
+    <section id="upload" class="py-20 bg-gradient-to-b from-white to-purple-50 dark:from-slate-950 dark:to-slate-900 transition-colors duration-300">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-pink-600 to-pink-500 bg-clip-text text-transparent dark:from-pink-400 dark:to-pink-300 mb-4">Try It Now</h2>
+                <p class="text-lg text-gray-600 dark:text-pink-300 font-medium">Upload an image to analyze air quality</p>
+            </div>
+
+            <!-- Upload Zone -->
+            <div class="upload-zone border-4 border-dashed border-pink-400 dark:border-pink-500 rounded-xl p-12 text-center bg-pink-50 dark:bg-gradient-to-br dark:from-slate-800 dark:to-slate-900 transition-all shadow-lg dark:shadow-xl dark:shadow-pink-900/50"
+                 id="uploadZone" onDragover="handleDragOver(event)" onDragleave="handleDragLeave(event)" onDrop="handleDrop(event)">
+                <div id="uploadContent">
+                    <i class="fas fa-cloud-upload-alt text-6xl text-blue-500 dark:text-blue-400 mb-4 block"></i>
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-pink-200 mb-2">Drag and drop your image</h3>
+                    <p class="text-gray-600 dark:text-pink-300 mb-6 font-medium">or</p>
+                    <label class="inline-block">
+                        <input type="file" id="fileInput" accept="image/*" onChange="handleFileSelect(event)" style="display: none;">
+                        <span class="px-8 py-4 bg-gradient-to-r from-pink-600 to-pink-500 text-white font-bold rounded-lg hover:from-pink-700 hover:to-pink-600 transition cursor-pointer inline-block shadow-lg shadow-pink-500/50 transform hover:scale-105">
+                            Browse Files
+                        </span>
+                    </label>
+                    <p class="text-sm text-gray-500 dark:text-blue-400 mt-4 font-medium">Supported: JPG, PNG, WebP (Max 10MB)</p>
+                </div>
+
+                <!-- Loading Spinner -->
+                <div id="loadingSpinner" style="display: none;" class="text-center">
+                    <div class="inline-block">
+                        <i class="fas fa-circle-notch text-6xl text-pink-500 dark:text-pink-400 spinner"></i>
+                    </div>
+                    <p class="text-lg text-gray-700 dark:text-pink-300 mt-4 font-bold">Analyzing image...</p>
+                </div>
+            </div>
+
+            <!-- Preview Image -->
+            <div id="imagePreview" style="display: none;" class="mt-8">
+                <img id="previewImg" src="" alt="Preview" class="w-full max-w-md mx-auto rounded-lg shadow-2xl shadow-blue-500/30">
+                <button onclick="resetUpload()" class="mt-6 block mx-auto px-6 py-2 bg-gradient-to-r from-gray-400 to-gray-500 dark:from-slate-700 dark:to-slate-600 text-white rounded-lg hover:from-gray-500 hover:to-gray-600 dark:hover:from-slate-600 dark:hover:to-slate-500 transition font-bold shadow-lg">
+                    Upload Another Image
+                </button>
+            </div>
+
+            <!-- AQI Result Card -->
+            <div id="resultCard" style="display: none;" class="mt-8">
+                
+                <div class="bg-gradient-to-br from-pink-600 via-pink-500 to-red-600 dark:from-slate-800 dark:via-pink-900 dark:to-slate-800 rounded-2xl p-8 text-white shadow-2xl shadow-pink-500/60 dark:shadow-pink-900/60">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Left Side - Main AQI -->
+                        <div class="flex flex-col items-center justify-center">
+                            <p class="text-blue-100 dark:text-blue-300 text-lg mb-2 font-semibold">Air Quality Index</p>
+                            <div class="relative w-40 h-40 flex items-center justify-center">
+    
+    <!-- SVG Ring -->
+    <svg class="absolute top-0 left-0" width="160" height="160">
+        <circle
+            cx="80"
+            cy="80"
+            r="70"
+            stroke="rgba(255,255,255,0.2)"
+            stroke-width="12"
+            fill="none"
+        />
+      <circle
+    id="aqiProgress"
+    cx="80"
+    cy="80"
+    r="70"
+    stroke="#22c55e"
+    stroke-width="12"
+    fill="none"
+    stroke-linecap="round"
+    stroke-dasharray="440"
+    stroke-dashoffset="440"
+    transform="rotate(-90 80 80)"
+    style="filter: drop-shadow(0 0 8px currentColor);"
+/>
+    </svg>
+
+    <!-- AQI Number -->
+    <span id="aqiValue" class="text-5xl font-black text-white relative z-10">--</span>
+
+</div>
+                            
+                            <p class="text-blue-100 dark:text-blue-400 text-sm mt-4 font-semibold">Current Reading</p>
+                            <p id="confidence" class="mt-3 text-sm text-white font-semibold"></p>
+                        </div>
+
+                        <!-- Right Side - Details -->
+                        <div>
+                            <!-- Category -->
+                            <div class="mb-6">
+                                <p class="text-blue-100 dark:text-blue-300 text-sm font-bold mb-2">AQI Category</p>
+                                <div class="inline-flex items-center gap-3">
+                                    <span id="aqiCategory" class="px-5 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white font-bold rounded-lg shadow-lg shadow-red-500/50">--</span>
+                                    <i class="fas fa-exclamation-triangle text-yellow-300 text-xl animate-pulse"></i>
+                                </div>
+                            </div>
+
+                            <!-- Progress Bar -->
+                            <div class="mb-6">
+                                <p class="text-blue-100 dark:text-blue-300 text-sm font-bold mb-2">AQI Level</p>
+                                <div class="w-full bg-white bg-opacity-20 dark:bg-slate-700 rounded-full h-4 overflow-hidden shadow-inner">
+                                    <div class="progress-fill h-full rounded-full" style="width: 85%"></div>
+                                </div>
+                                <div class="flex justify-between text-xs text-blue-100 dark:text-blue-300 mt-2 font-semibold">
+                                    <span>0 (Good)</span>
+                                    <span>500+ (Hazardous)</span>
+                                </div>
+                            </div>
+
+                            <!-- Health Recommendation -->
+                            <div class="bg-white dark:bg-slate-800 bg-opacity-15 dark:bg-opacity-30 rounded-lg p-4 border border-white dark:border-slate-600 border-opacity-30 dark:border-opacity-30">
+                                <p class="text-sm font-bold text-white dark:text-blue-200 mb-2">Health Recommendation</p>
+                                <p class="health-text text-white dark:text-blue-100 text-sm font-medium">
+                                    <i class="fas fa-leaf text-green-300 mr-2"></i>
+                                    Move outdoor activities indoors. Consider using N95 masks if you must go outside.
+                                </p>
+                            </div>
+
+                            <!-- Additional Metrics -->
+                            <div class="grid grid-cols-2 gap-4 mt-6">
+                                <div class="bg-white dark:bg-slate-800 bg-opacity-15 dark:bg-opacity-30 rounded-lg p-3 border border-white dark:border-slate-600 border-opacity-30 dark:border-opacity-30">
+                                    <p class="text-xs text-blue-100 dark:text-blue-300 font-bold">PM2.5</p>
+                                    <p id="pm25" class="text-2xl font-black text-white">--</p>
+                                </div>
+                                <div class="bg-white dark:bg-slate-800 bg-opacity-15 dark:bg-opacity-30 rounded-lg p-3 border border-white dark:border-slate-600 border-opacity-30 dark:border-opacity-30">
+                                    <p class="text-xs text-blue-100 dark:text-blue-300 font-bold">PM10</p>
+                                    <p id="pm10" class="text-2xl font-black text-white">--</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gradient-to-b from-purple-50 to-white dark:from-slate-900 dark:to-slate-950 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <!-- Left - Image -->
+                <div class="order-2 md:order-1">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-gradient-to-br from-cyan-400 via-magenta-500 to-orange-600 rounded-2xl blur-xl opacity-40" style="height: 350px;"></div>
+                        <div class="relative bg-gradient-to-br from-pink-600 to-pink-700 dark:from-slate-800 dark:to-pink-900 rounded-2xl p-8 text-white shadow-2xl shadow-pink-500/50">
+                            <div class="space-y-6">
+                                <div class="flex items-start gap-4">
+                                    <i class="fas fa-check-circle text-2xl text-green-300 mt-1 shadow-lg shadow-green-400/50"></i>
+                                    <div>
+                                        <h4 class="font-black text-lg mb-1">Deep Learning Model</h4>
+                                        <p class="text-blue-100">Convolutional Neural Networks trained on 50,000+ images</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <i class="fas fa-check-circle text-2xl text-green-300 mt-1 shadow-lg shadow-green-400/50"></i>
+                                    <div>
+                                        <h4 class="font-black text-lg mb-1">Real-time Processing</h4>
+                                        <p class="text-blue-100">Analyze images in milliseconds with optimized inference</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <i class="fas fa-check-circle text-2xl text-green-300 mt-1 shadow-lg shadow-green-400/50"></i>
+                                    <div>
+                                        <h4 class="font-black text-lg mb-1">Multi-pollutant Detection</h4>
+                                        <p class="text-blue-100">Identifies PM2.5, PM10, O3, NO2, and more</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <i class="fas fa-check-circle text-2xl text-green-300 mt-1 shadow-lg shadow-green-400/50"></i>
+                                    <div>
+                                        <h4 class="font-black text-lg mb-1">High Accuracy</h4>
+                                        <p class="text-blue-100">95%+ accuracy across all AQI categories</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right - Text -->
+                <div class="order-1 md:order-2">
+                    <h2 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-pink-600 to-pink-500 bg-clip-text text-transparent dark:from-pink-400 dark:to-pink-300 mb-6">How It Works</h2>
+                    <p class="text-lg text-gray-700 dark:text-pink-300 mb-6 leading-relaxed font-medium">
+                        Our system uses advanced machine learning to analyze images and detect air quality parameters. The image-based approach captures atmospheric conditions that traditional sensors might miss.
+                    </p>
+                    <p class="text-lg text-gray-700 dark:text-pink-300 mb-6 leading-relaxed font-medium">
+                        Using a trained Convolutional Neural Network, we process the image through multiple layers of feature extraction, identifying patterns associated with various air quality levels and pollutants.
+                    </p>
+                    <p class="text-lg text-gray-700 dark:text-pink-300 mb-8 leading-relaxed font-medium">
+                        The result is an AQI reading that corresponds to WHO standards, helping individuals make informed decisions about their health and outdoor activities.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <div class="px-6 py-3 bg-gradient-to-r from-pink-100 to-pink-50 dark:from-pink-900/50 dark:to-pink-800/30 rounded-lg border-2 border-pink-300 dark:border-pink-600 shadow-lg shadow-pink-400/30">
+                            <p class="font-black text-gray-900 dark:text-pink-300">TensorFlow/Keras</p>
+                        </div>
+                        <div class="px-6 py-3 bg-gradient-to-r from-pink-100 to-pink-50 dark:from-pink-900/50 dark:to-pink-800/30 rounded-lg border-2 border-pink-300 dark:border-pink-600 shadow-lg shadow-pink-400/30">
+                            <p class="font-black text-gray-900 dark:text-pink-300">Python</p>
+                        </div>
+                        <div class="px-6 py-3 bg-gradient-to-r from-pink-100 to-pink-50 dark:from-pink-900/50 dark:to-pink-800/30 rounded-lg border-2 border-pink-300 dark:border-pink-600 shadow-lg shadow-pink-400/30">
+                            <p class="font-black text-gray-900 dark:text-pink-300">OpenCV</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="py-16 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-slate-950 dark:to-slate-900 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="text-center p-8 bg-white dark:bg-gradient-to-br dark:from-slate-800 dark:to-slate-900 rounded-xl shadow-lg dark:shadow-xl dark:shadow-pink-900/40 border-l-4 border-pink-500 hover:shadow-2xl transition">
+                    <p class="text-5xl font-black bg-gradient-to-r from-pink-600 to-pink-500 bg-clip-text text-transparent dark:from-pink-400 dark:to-pink-300 mb-2">50K+</p>
+                    <p class="text-gray-700 dark:text-pink-300 font-bold">Training Images</p>
+                </div>
+                <div class="text-center p-8 bg-white dark:bg-gradient-to-br dark:from-slate-800 dark:to-slate-900 rounded-xl shadow-lg dark:shadow-xl dark:shadow-pink-900/40 border-l-4 border-pink-500 hover:shadow-2xl transition">
+                    <p class="text-5xl font-black bg-gradient-to-r from-pink-600 to-pink-500 bg-clip-text text-transparent dark:from-pink-400 dark:to-pink-300 mb-2">95%</p>
+                    <p class="text-gray-700 dark:text-pink-300 font-bold">Accuracy Rate</p>
+                </div>
+                <div class="text-center p-8 bg-white dark:bg-gradient-to-br dark:from-slate-800 dark:to-slate-900 rounded-xl shadow-lg dark:shadow-xl dark:shadow-pink-900/40 border-l-4 border-pink-500 hover:shadow-2xl transition">
+                    <p class="text-5xl font-black bg-gradient-to-r from-pink-600 to-pink-500 bg-clip-text text-transparent dark:from-pink-400 dark:to-pink-300 mb-2">&lt;500ms</p>
+                    <p class="text-gray-700 dark:text-pink-300 font-bold">Response Time</p>
+                </div>
+                <div class="text-center p-8 bg-white dark:bg-gradient-to-br dark:from-slate-800 dark:to-slate-900 rounded-xl shadow-lg dark:shadow-xl dark:shadow-pink-900/40 border-l-4 border-pink-500 hover:shadow-2xl transition">
+                    <p class="text-5xl font-black bg-gradient-to-r from-pink-600 to-pink-500 bg-clip-text text-transparent dark:from-pink-400 dark:to-pink-300 mb-2">8</p>
+                    <p class="text-gray-700 dark:text-pink-300 font-bold">Pollutants Detected</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gradient-to-b from-white to-blue-50 dark:from-slate-950 dark:to-slate-900 transition-colors duration-300">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-pink-600 to-pink-500 bg-clip-text text-transparent dark:from-pink-400 dark:to-pink-300 mb-4">Get In Touch</h2>
+                <p class="text-lg text-gray-600 dark:text-pink-300 font-medium">Have questions? We'd love to hear from you</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <!-- Email -->
+                <div class="bg-gradient-to-br from-white to-pink-50 dark:from-slate-800 dark:to-slate-900 rounded-lg p-8 text-center hover:shadow-2xl hover:shadow-pink-500/40 dark:hover:shadow-pink-900/50 transition border-t-4 border-pink-500">
+                    <i class="fas fa-envelope text-4xl text-pink-600 dark:text-pink-400 mb-4 block shadow-lg shadow-pink-400/40"></i>
+                    <h3 class="font-bold text-lg text-gray-900 dark:text-pink-200 mb-2">Email</h3>
+                    <p class="text-gray-700 dark:text-pink-300 font-medium">contact@aqidetection.com</p>
+                </div>
+
+                <!-- Phone -->
+                <div class="bg-gradient-to-br from-white to-pink-50 dark:from-slate-800 dark:to-slate-900 rounded-lg p-8 text-center hover:shadow-2xl hover:shadow-pink-500/40 dark:hover:shadow-pink-900/50 transition border-t-4 border-pink-500">
+                    <i class="fas fa-phone text-4xl text-pink-600 dark:text-pink-400 mb-4 block shadow-lg shadow-pink-400/40"></i>
+                    <h3 class="font-bold text-lg text-gray-900 dark:text-pink-200 mb-2">Phone</h3>
+                    <p class="text-gray-700 dark:text-pink-300 font-medium">+1 (555) 123-4567</p>
+                </div>
+
+                <!-- Location -->
+                <div class="bg-gradient-to-br from-white to-red-50 dark:from-slate-800 dark:to-slate-900 rounded-lg p-8 text-center hover:shadow-2xl hover:shadow-red-500/30 dark:hover:shadow-red-900/50 transition border-t-4 border-red-500">
+                    <i class="fas fa-map-marker-alt text-4xl text-red-600 dark:text-red-400 mb-4 block shadow-lg shadow-red-400/30"></i>
+                    <h3 class="font-bold text-lg text-gray-900 dark:text-red-200 mb-2">Location</h3>
+                    <p class="text-gray-700 dark:text-red-300 font-medium">Tech Campus, Innovation City</p>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="bg-gradient-to-br from-white to-pink-50 dark:from-slate-800 dark:to-slate-900 rounded-xl p-8 shadow-2xl dark:shadow-xl dark:shadow-pink-900/50 border-2 border-pink-200 dark:border-pink-900/50">
+                <form onsubmit="handleContactSubmit(event)">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <input type="text" placeholder="Your Name" class="w-full px-4 py-3 rounded-lg border-2 border-pink-300 dark:border-pink-600 bg-white dark:bg-slate-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-pink-500 dark:focus:ring-pink-400 transition font-medium" required>
+                        <input type="email" placeholder="Your Email" class="w-full px-4 py-3 rounded-lg border-2 border-pink-300 dark:border-pink-600 bg-white dark:bg-slate-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-pink-500 dark:focus:ring-pink-400 transition font-medium" required>
+                    </div>
+                    <textarea placeholder="Your Message" rows="5" class="w-full px-4 py-3 rounded-lg border-2 border-pink-300 dark:border-pink-600 bg-white dark:bg-slate-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-pink-500 dark:focus:ring-pink-400 transition mb-6 font-medium" required></textarea>
+                    <button type="submit" class="w-full px-6 py-4 bg-gradient-to-r from-pink-600 to-pink-500 dark:from-pink-700 dark:to-pink-600 text-white font-bold rounded-lg hover:from-pink-700 hover:to-pink-600 dark:hover:from-pink-600 dark:hover:to-pink-500 transition transform hover:scale-105 shadow-lg shadow-pink-500/50 dark:shadow-pink-600/50 text-lg">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-gray-900 via-slate-900 to-black dark:from-black dark:via-slate-950 dark:to-black text-gray-300 py-12 border-t-4 border-pink-600">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <!-- Brand -->
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 bg-gradient-to-br from-blue-500 via-pink-500 to-red-600 rounded-lg flex items-center justify-center text-white font-black shadow-lg shadow-pink-500/50">
+                            AQ
+                        </div>
+                        <span class="font-black text-white">AQI Detection</span>
+                    </div>
+                    <p class="text-sm text-gray-400 font-medium">ML-powered air quality analysis system</p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-black text-white mb-4 text-lg">Quick Links</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#hero" class="text-gray-400 hover:text-blue-400 transition font-medium">Home</a></li>
+                        <li><a href="#features" class="text-gray-400 hover:text-blue-400 transition font-medium">Features</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-blue-400 transition font-medium">About</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-blue-400 transition font-medium">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Resources -->
+                <div>
+                    <h4 class="font-black text-white mb-4 text-lg">Resources</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition font-medium">Documentation</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition font-medium">GitHub</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition font-medium">API Docs</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition font-medium">Blog</a></li>
+                    </ul>
+                </div>
+
+                <!-- Social -->
+                <div>
+                    <h4 class="font-black text-white mb-4 text-lg">Follow Us</h4>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center hover:from-blue-500 hover:to-blue-600 transition shadow-lg shadow-blue-600/30 text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-lg flex items-center justify-center hover:from-blue-400 hover:to-cyan-500 transition shadow-lg shadow-blue-600/30 text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center hover:from-blue-500 hover:to-purple-500 transition shadow-lg shadow-purple-600/30 text-white">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gradient-to-br from-purple-600 to-pink-600 rounded-lg flex items-center justify-center hover:from-purple-500 hover:to-pink-500 transition shadow-lg shadow-purple-600/30 text-white">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-sm text-gray-500 font-medium">&copy; 2026 AQI Detection System. All rights reserved.</p>
+                    <div class="flex gap-6 mt-4 md:mt-0 text-sm">
+                        <a href="#" class="text-gray-500 hover:text-blue-400 transition font-medium">Privacy Policy</a>
+                        <a href="#" class="text-gray-500 hover:text-blue-400 transition font-medium">Terms of Service</a>
+                        <a href="#" class="text-gray-500 hover:text-blue-400 transition font-medium">Cookie Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="app.js"></script>
+
+</body>
+</html>
