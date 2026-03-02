@@ -231,6 +231,15 @@
     </h3>
     <div id="map" style="height:400px; border-radius:16px;"></div>
 </div>
+<!-- AQI History Graph -->
+<div id="chartSection" class="mt-12" style="display:none;">
+    <h3 class="text-2xl font-bold text-center text-white mb-4">
+        📊 AQI History Trend
+    </h3>
+    <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-xl">
+        <canvas id="aqiChart"></canvas>
+    </div>
+</div>
                             
                             <p class="text-blue-100 dark:text-blue-400 text-sm mt-4 font-semibold">Current Reading</p>
                             <p id="confidence" class="mt-3 text-sm text-white font-semibold"></p>
@@ -497,6 +506,7 @@
             </div>
         </div>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="app.js"></script>
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
