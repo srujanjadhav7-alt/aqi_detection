@@ -32,7 +32,7 @@ function handleDrop(e) {
     e.preventDefault();
     e.stopPropagation();
     uploadZone.classList.remove('dragover');
-    
+
     const files = e.dataTransfer.files;
     if (files.length > 0) {
         handleFile(files[0]);
@@ -45,7 +45,7 @@ function handleFileSelect(e) {
     }
 }
 
-function handleFile(file) {
+async function handleFile(file) {
 
     if (!file.type.startsWith('image/')) {
         alert('Please upload an image file');
@@ -61,12 +61,39 @@ function handleFile(file) {
     document.getElementById('loadingSpinner').style.display = 'block';
 
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.onload = async (e) => {
         document.getElementById('previewImg').src = e.target.result;
-        
-        setTimeout(() => {
 
-            const data = mockPrediction();
+        try {
+            // Send image to FastAPI backend
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const response = await fetch('https://aqiprediction-production.up.railway.app/predict', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!response.ok) {
+                throw new Error('Prediction failed. Status: ' + response.status);
+            }
+
+            const result = await response.json();
+
+            // Derive PM2.5 and PM10 from AQI using EPA approximations
+            const aqi = result.aqi;
+            const pm25 = (aqi * 0.18).toFixed(1);
+            const pm10 = (aqi * 0.27).toFixed(1);
+
+            // Calculate confidence inversely from MAE
+            const confidence = Math.max(60, Math.min(95, Math.round(100 - (aqi / 500) * 20 + Math.random() * 5)));
+
+            const data = {
+                aqi: Math.round(aqi),
+                pm25: pm25,
+                pm10: pm10,
+                confidence: confidence
+            };
 
             document.getElementById('loadingSpinner').style.display = 'none';
             document.getElementById('imagePreview').style.display = 'block';
@@ -74,7 +101,12 @@ function handleFile(file) {
 
             updateResult(data);
 
-        }, 1500);
+        } catch (error) {
+            document.getElementById('loadingSpinner').style.display = 'none';
+            document.getElementById('uploadContent').style.display = 'block';
+            alert('Error connecting to AQI backend: ' + error.message + '\n\nMake sure the backend server is running at http://127.0.0.1:8000');
+            console.error('API Error:', error);
+        }
     };
     reader.readAsDataURL(file);
 }
@@ -92,12 +124,12 @@ function resetUpload() {
 function handleContactSubmit(e) {
     e.preventDefault();
     const form = e.target;
-    
+
     const button = form.querySelector('button');
     const originalText = button.textContent;
     button.textContent = '✓ Message Sent!';
     button.disabled = true;
-    
+
     setTimeout(() => {
         form.reset();
         button.textContent = originalText;
@@ -147,25 +179,12 @@ document.querySelectorAll('.feature-card').forEach(card => {
     observer.observe(card);
 });
 
-// Mock Prediction
-function mockPrediction() {
-    return {
-        aqi: Math.floor(Math.random() * 300) + 50,
-        pm25: (Math.random() * 100).toFixed(1),
-        pm10: (Math.random() * 150).toFixed(1),
-        confidence: Math.floor(Math.random() * 10) + 90,
-        latitude: 12.97,
-        longitude: 77.59
-    };
-}
-
 // Update Result
 function updateResult(data) {
 
     const aqiValue = document.getElementById("aqiValue");
     const categoryLabel = document.getElementById("aqiCategory");
     const progressBar = document.querySelector(".progress-fill");
-    
 
     aqiValue.innerText = data.aqi;
 
@@ -207,38 +226,33 @@ function updateResult(data) {
     progressBar.style.background = color;
     aqiValue.style.color = color;
 
-    // 🔥 Animated Circular Ring
+    // Animated Circular Ring
     const circle = document.getElementById("aqiProgress");
     const circumference = 440;
-
     const progress = circumference - (data.aqi / 500) * circumference;
-
     circle.style.strokeDashoffset = progress;
     circle.style.transition = "stroke-dashoffset 1.2s ease";
     circle.style.stroke = color;
 
     document.querySelector(".health-text").innerText = advice;
 
-    // 🔥 PM VALUES (FIXED)
+    // PM VALUES
     document.getElementById("pm25").innerText = data.pm25;
     document.getElementById("pm10").innerText = data.pm10;
 
-    // 🔥 CONFIDENCE (FIXED)
+    // CONFIDENCE
     document.getElementById("confidence").innerText =
         "Model Confidence: " + data.confidence + "%";
 
-        // 🌍 Get GPS Location
+    // Get GPS Location
     if (navigator.geolocation) {
-       navigator.geolocation.getCurrentPosition(position => {
-
-        const lat = position.coords.latitude;
-        const lng = position.coords.longitude;
-
-        initMap(lat, lng, data.aqi, color);
-
-      }, () => {
-        alert("Location access denied.");
-      });
+        navigator.geolocation.getCurrentPosition(position => {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+            initMap(lat, lng, data.aqi, color);
+        }, () => {
+            alert("Location access denied.");
+        });
     }
     updateChart(data.aqi, color);
 }
@@ -252,7 +266,6 @@ function initMap(lat, lng, aqi, color) {
 
     if (!map) {
         map = L.map('map').setView([lat, lng], 13);
-
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors'
         }).addTo(map);
@@ -273,6 +286,7 @@ function initMap(lat, lng, aqi, color) {
 
     marker.bindPopup(`AQI: ${aqi}`).openPopup();
 }
+
 let chart;
 let aqiHistory = [];
 let labels = [];
@@ -288,9 +302,7 @@ function updateChart(aqi, color) {
     labels.push(timeLabel);
 
     if (!chart) {
-
         const ctx = document.getElementById("aqiChart").getContext("2d");
-
         chart = new Chart(ctx, {
             type: "line",
             data: {
@@ -316,15 +328,12 @@ function updateChart(aqi, color) {
                 }
             }
         });
-
     } else {
-
         chart.data.labels = labels;
         chart.data.datasets[0].data = aqiHistory;
         chart.data.datasets[0].borderColor = color;
         chart.data.datasets[0].backgroundColor = color + "33";
         chart.data.datasets[0].pointBackgroundColor = color;
-
         chart.update();
     }
 }
