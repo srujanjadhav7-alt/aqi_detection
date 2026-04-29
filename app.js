@@ -180,6 +180,24 @@ function handleContactSubmit(e) {
         button.disabled = false;
     }, 2000);
 }
+function showMap(lat, lon) {
+    // show section
+    document.getElementById("mapSection").style.display = "block";
+
+    // initialize map
+    const map = L.map('map').setView([lat, lon], 12);
+
+    // map tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    // marker
+    L.marker([lat, lon]).addTo(map)
+        .bindPopup("📍 You are here")
+        .openPopup();
+}
+
 
 // Smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -259,9 +277,13 @@ function showPosition(position) {
     const lat = position.coords.latitude;
     const lon = position.coords.longitude;
 
-    console.log("Location:", lat, lon);
-
     document.getElementById("location").innerText =
-        `Lat: ${lat.toFixed(2)}, Lon: ${lon.toFixed(2)}`;
+        `📍 Lat: ${lat.toFixed(3)}, Lon: ${lon.toFixed(3)}`;
+
+    fetchRealAQI(lat, lon);
+
+
+    showMap(lat, lon);
 }
+L.map('map').setView([lat, lon], 14);
 getLocation();
