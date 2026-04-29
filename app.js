@@ -1,4 +1,44 @@
 // Dark Mode Toggle
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+    }
+}
+
+function showPosition(position) {
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+
+    document.getElementById("location").innerText =
+        `📍 Lat: ${lat.toFixed(3)}, Lon: ${lon.toFixed(3)}`;
+
+    fetchRealAQI(lat, lon);
+}
+
+function showError() {
+    document.getElementById("location").innerText =
+        "Location access denied ❌";
+}
+
+async function fetchRealAQI(lat, lon) {
+    const apiKey = "YOUR_API_KEY"; // replace this
+
+    try {
+        const res = await fetch(
+            `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`
+        );
+
+        const data = await res.json();
+        const aqi = data.list[0].main.aqi;
+
+        const mappedAQI = [50, 100, 150, 200, 300][aqi - 1];
+
+        document.getElementById("realAQI").innerText =
+            `🌍 Real AQI: ${mappedAQI}`;
+    } catch (err) {
+        console.error(err);
+    }
+}
 const themeToggle = document.getElementById('theme-toggle');
 const html = document.documentElement;
 
@@ -15,6 +55,7 @@ themeToggle.addEventListener('click', () => {
 // Drag and Drop
 const uploadZone = document.getElementById('uploadZone');
 const fileInput = document.getElementById('fileInput');
+
 
 function handleDragOver(e) {
     e.preventDefault();
@@ -208,3 +249,19 @@ function updateResult(data) {
     document.getElementById("pm25").innerText = data.pm25;
     document.getElementById("pm10").innerText = data.pm10;
 }
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    }
+}
+
+function showPosition(position) {
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+
+    console.log("Location:", lat, lon);
+
+    document.getElementById("location").innerText =
+        `Lat: ${lat.toFixed(2)}, Lon: ${lon.toFixed(2)}`;
+}
+getLocation();
