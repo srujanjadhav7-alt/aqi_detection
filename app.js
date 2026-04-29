@@ -181,21 +181,27 @@ function handleContactSubmit(e) {
     }, 2000);
 }
 function showMap(lat, lon) {
-    // show section
-    document.getElementById("mapSection").style.display = "block";
+    const mapSection = document.getElementById("mapSection");
+    mapSection.style.display = "block";
 
-    // initialize map
-    const map = L.map('map').setView([lat, lon], 12);
+    // Delay map creation (IMPORTANT FIX)
+    setTimeout(() => {
+        const map = L.map('map').setView([lat, lon], 13);
 
-    // map tiles
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap'
-    }).addTo(map);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors',
+            maxZoom: 19
+        }).addTo(map);
 
-    // marker
-    L.marker([lat, lon]).addTo(map)
-        .bindPopup("📍 You are here")
-        .openPopup();
+        L.marker([lat, lon])
+            .addTo(map)
+            .bindPopup("📍 You are here")
+            .openPopup();
+
+        // 🔥 FIX: force map resize
+        map.invalidateSize();
+
+    }, 300);
 }
 
 
