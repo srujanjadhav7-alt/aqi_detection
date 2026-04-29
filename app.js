@@ -21,8 +21,7 @@ function showError() {
 }
 
 async function fetchRealAQI(lat, lon) {
-    const apiKey = "YOUR_API_KEY"; // replace this
-
+    const apiKey = "5b9da0347940c23237eb0f9f0dedd298";
     try {
         const res = await fetch(
             `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`
