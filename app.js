@@ -269,7 +269,7 @@ function updateResult(data) {
 }
 function getLocation() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
     }
 }
 
@@ -281,9 +281,11 @@ function showPosition(position) {
         `📍 Lat: ${lat.toFixed(3)}, Lon: ${lon.toFixed(3)}`;
 
     fetchRealAQI(lat, lon);
-
-
     showMap(lat, lon);
 }
-L.map('map').setView([lat, lon], 14);
+
+function showError() {
+    document.getElementById("location").innerText =
+        "Location access denied ❌";
+}
 getLocation();
