@@ -182,7 +182,29 @@ document.querySelectorAll('.feature-card').forEach(card => {
     observer.observe(card);
 });
 
-// Update Result (UNCHANGED)
 function updateResult(data) {
-    // your original code untouched
+
+    // AQI value
+    document.getElementById("aqiValue").innerText = data.aqi;
+
+    // Category
+    let category = "Good";
+    if (data.aqi > 50) category = "Moderate";
+    if (data.aqi > 100) category = "Unhealthy";
+    if (data.aqi > 150) category = "Very Unhealthy";
+    if (data.aqi > 200) category = "Hazardous";
+
+    document.getElementById("aqiCategory").innerText = category;
+
+    // Progress circle (if exists)
+    const circle = document.getElementById("aqiProgress");
+    if (circle) {
+        const circumference = 440;
+        const offset = circumference - (data.aqi / 500) * circumference;
+        circle.style.strokeDashoffset = offset;
+    }
+
+    // PM values
+    document.getElementById("pm25").innerText = data.pm25;
+    document.getElementById("pm10").innerText = data.pm10;
 }
